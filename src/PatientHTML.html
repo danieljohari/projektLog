@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Projekt Prøve /Cheat Sheet</title>
+</head>
+
+<body>
+<!-- Headings / overskift (den største) -->
+<h1> Projekt Prøve HTML (OVERSKRIFT 1)</h1>
+
+
+<!-- Paragraf
+ STRONG = gør skriften fed
+ EM = emphisize KURSIV
+ Kan ændres i CSS
+ -->
+<h2> Forklaring af Projekt </h2>
+<p>
+    Dette er en hjemmeside som prøve til vores Del-Aflevering 1.
+    <strong>Dette er en paragraf (et stykke tekst, der skal respræsenterer noget essentielt i programmet)</strong>
+    <em>Projektet kan bygges videre herfra.</em>
+</p>
+
+<!-- Paragraf 2
+ <a> = link til hjemmeside eller genvej.
+ href = hvilken hjemmesiden
+ TARGET = "_blank" åbner en ny side
+ -->
+<h3> Paragraffer og Forklaringer</h3>
+<p>
+    Paragrafer er blockbaseret, DVS. den automatisk sætter dem under hinanden.
+    Links til hjemmesider kan gøres ved at bruge tagget: <strong> < a > </strong>
+    FX. vil vi gerne have adgang <a href="https://learn.inside.dtu.dk/d2l/home" target="_blank">DTU LEARN</a>
+</p>
+
+<!-- List
+    Der er 2 lister. En uorden og en orden
+    UL = unordered list - punktlig
+    OL = Ordered List - nummereret
+-->
+<h4> Unordered List</h4>
+
+<ul>
+    <li>List Item 1</li>
+    <li>List Item 2</li>
+    <li>List Item 3</li>
+    <li>List Item 4</li>
+</ul>
+<h4> Ordered List</h4>
+<ol>
+    <li>List Item 1</li>
+    <li>List Item 2</li>
+    <li>List Item 3</li>
+    <li>List Item 4</li>
+</ol>
+
+<!-- TABLE (som en matrix)
+THEAD = hovedet
+TBODY = kroppen
+TR = table row Der er headings (TH) i Rows
+TD = table data
+TABLES ER BRUGT TIL TABLUAR DATA IKKE LAYOUT.
+    -->
+
+<h5>En Tabel</h5>
+
+<table>
+    <thead>
+    <tr>
+        <th>Navn</th>
+        <th>Email</th>
+        <th>Alder</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>Daniel</td>
+        <td>DanielDTU.Mail</td>
+        <td>24</td>
+    </tr>
+    <tr>
+        <td>Nada</td>
+        <td>NadaDTU.Mail</td>
+        <td>22</td>
+    </tr>
+    <tr>
+        <td>Nanna</td>
+        <td>NannaDTU.Mail</td>
+        <td>23</td>
+    </tr>
+    <tr>
+        <td>Sabrina</td>
+        <td>SabrinaDTU.Mail</td>
+        <td>23</td>
+    </tr>
+    </tbody>
+</table>
+<br> <!-- linjeskift (BR = BREAK) -->
+<hr> <!-- laver en linje på siden -->
+<br>
+
+<!-- FORMS
+POST = poste noget eller smide det op, som at add til en DB'
+GET = submit, og se dataen. Kan bruges til at søge.
+-->
+<h6> Diverse funktioner og knapper </h6>
+
+<form action="process.php" method="post">
+    <div>
+        <label>Fornavn</label>
+        <input type="text" name="forNavn"
+               placeholder = "Indtast fornavn">
+    </div>
+    <br>
+    <div>
+        <label>Efternavn</label>
+        <input type="text" name="efterNavn"
+               placeholder="Indtast efteranavn">
+    </div>
+    <br>
+    <div>
+        <label>Email</label>
+        <input type="email" name="email"
+               placeholder="Indtast Email-adresse">
+    </div>
+    <br>
+    <div>
+        <label>Køn</label>
+        <select name="Køn">
+            <option value="mand">Mand</option>
+            <option value="kvinde">Kvinde</option>
+            <option value="andet">Andet</option>
+        </select>
+    </div>
+    <br>
+    <div>
+        <label>Alder</label>
+        <input type="number" name="age" value=""
+               placeholder="Vælg alder">
+    </div>
+    <br>
+    <div>
+        <label>Fødelsdag</label>
+        <input type="date" name="fødselsdag">
+    </div>
+    <br>
+    </div>
+    <br>
+    <div>
+        <label>Kommentar</label>
+        <textarea name="Kommentar" placeholder="Skriv en kommentar"></textarea>
+    </div>
+    <br>
+    <input type="submit" name="submit"
+           value="Submit">
+
+</form>
+
+<!-- BUTTON
+Skal bruges Java eller JS til funktionalitet af knapper
+-->
+<button>Klik på mig</button>
+<br>
+
+<!-- IMAGE
+-->
+<a href="https://www.inside.dtu.dk/da/undervisning" target="_blank">
+    <img src="http://proventilation.dk/wp-content/uploads/2018/05/DTU-logo.png"
+         alt = "DTU BILLEDE"
+         height="100" width="200">
+</a>
+
+<!-- QUOTATIONS -->
+
+<blockquote cite="http://johariymedia.com">
+    Indsæt en tekst fra programmet src kode
+</blockquote>
+<br>
+
+<p>The <abbr title="World Wide Web">WWW</abbr> is awesome</p>
+
+<p><cite>HTML Projekt Prøve</cite> af Daniel Johari</p>
+
+<div style="margin-top: 500px"></div>
+
+</body>
+
+</html>
