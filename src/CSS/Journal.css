@@ -137,7 +137,6 @@ ul li ul li a:hover {
 .closebtn:hover {
     color: black;
 }
-
 table {
     width: 1200px;
     height: 50px;
@@ -163,7 +162,6 @@ table, th, td {
 }
 
 th, td {
-    text-align: center;
     padding: 15px;
     width: auto;
 }
@@ -174,4 +172,3 @@ tr:nth-child(even){
 tr:nth-child(odd){
     background-color: lightsteelblue; /* LIGHTBLUE ELLER LIGHTSTEELBLUE PREF*/
 }
-
