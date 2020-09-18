@@ -5,7 +5,7 @@
 }
 
 header {
-    background-image:linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url("GettyImages-889905792-600x375.jpg");
+    background-image:linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url("../IMG/GettyImages-889905792-600x375.jpg");
     height: 100vh;
     background-size: cover;
     background-position: center;
@@ -139,31 +139,37 @@ ul li ul li a:hover {
 }
 
 table {
-    width: 400px;
-    height: 100px;
-    position: absolute;
-    top: 250px;
+    width: 1200px;
+    height: 50px;
+    position: relative;
+    top: 120px;
     right: 0px;
 }
 
+caption{
+    color: white;
+}
+
 th {
-    text-align: left;
+    text-align: center;
     background-color: transparent;
 }
 
 table, th, td {
-    border: 1px solid #ffffff;
+    width: 1000px;
+    border: 1px solid #000000;
     border-collapse: collapse;
-    color: white;
+    color: black;
 }
 
 th, td {
-    padding: 10px;
+    padding: 15px;
+    width: auto;
 }
 
 tr:nth-child(even){
-    background-color: transparent;
+    background-color: white;
 }
 tr:nth-child(odd){
-    background-color: transparent;
+    background-color: lightsteelblue; /* LIGHTBLUE ELLER LIGHTSTEELBLUE PREF*/
 }

@@ -5,7 +5,7 @@
 }
 
 header {
-    background-image:linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url("GettyImages-889905792-600x375.jpg");
+    background-image:linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url("../IMG/GettyImages-889905792-600x375.jpg");
     height: 100vh;
     background-size: cover;
     background-position: center;
@@ -138,12 +138,17 @@ ul li ul li a:hover {
     color: black;
 }
 
+
 table {
     width: 400px;
     height: 100px;
     position: absolute;
     top: 250px;
-    right: 0px;
+    right: 5px;
+}
+
+caption {
+    font-size: 20px;
 }
 
 th {
@@ -152,6 +157,7 @@ th {
 }
 
 table, th, td {
+    width: 400px;
     border: 1px solid #ffffff;
     border-collapse: collapse;
     color: white;
