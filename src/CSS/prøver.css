@@ -113,38 +113,4 @@ ul li ul li a:hover {
     color: #000;
 }
 
-table {
-    width: 1200px;
-    height: 50px;
-    position: relative;
-    top: 120px;
-    right: 0px;
-}
 
-caption{
-    color: white;
-}
-
-th {
-    text-align: center;
-    background-color: transparent;
-}
-
-table, th, td {
-    width: 1000px;
-    border: 1px solid #000000;
-    border-collapse: collapse;
-    color: black;
-}
-
-th, td {
-    padding: 15px;
-    width: auto;
-}
-
-tr:nth-child(even){
-    background-color: white;
-}
-tr:nth-child(odd){
-    background-color: lightsteelblue; /* LIGHTBLUE ELLER LIGHTSTEELBLUE PREF*/
-}

@@ -113,38 +113,23 @@ ul li ul li a:hover {
     color: #000;
 }
 
-table {
-    width: 1200px;
-    height: 50px;
-    position: relative;
-    top: 120px;
-    right: 0px;
-}
 
-caption{
-    color: white;
-}
-
-th {
-    text-align: center;
+#box {
+    border-spacing: 10px;
     background-color: transparent;
-}
-
-table, th, td {
-    width: 1000px;
-    border: 1px solid #000000;
-    border-collapse: collapse;
-    color: black;
-}
-
-th, td {
-    padding: 15px;
     width: auto;
+    height: auto;
+    position: relative;
+    top: 150px;
+    left: 0px;
+    right: 500px;
+    border: 1px solid transparent;
+    color: white;
+    text-align-all:center ;
+    text-align: center;
+    text-decoration: none;
+
 }
 
-tr:nth-child(even){
-    background-color: white;
-}
-tr:nth-child(odd){
-    background-color: lightsteelblue; /* LIGHTBLUE ELLER LIGHTSTEELBLUE PREF*/
-}
+
+
