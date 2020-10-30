@@ -9,10 +9,10 @@ class DBComm {
 
     public static void main(String[] args) {
         connection = Connector.getConnection();
-            System.out.println("Im in");
+            System.out.println("Im In");
 
             //getHomeData();
-            findUser("daniel@dtu.dk");
+            findUser("sabrina@dtu.dk");
 
         }
 

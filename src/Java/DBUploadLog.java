@@ -17,7 +17,7 @@ public class DBUploadLog {
         // Class.forName("com.mysql.cj.jdbc.Driver");
         //mysql skal ændres senere til MariaDB, localhost til en IPaddresse -
         connection = Connector.getConnection();
-        System.out.println("Im in");
+        //System.out.println("Im in");
 
         //getHomeData();
 

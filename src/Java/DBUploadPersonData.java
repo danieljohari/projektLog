@@ -16,7 +16,7 @@ public class DBUploadPersonData {
     public static void main(String[] args) {
         connection = Connector.getConnection();
 
-        System.out.println("Im in");
+       // System.out.println("Im Gone");
 
         //getHomeData();
 
