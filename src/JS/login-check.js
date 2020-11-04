@@ -2,6 +2,7 @@ const loginForm = document.getElementById("login-form")
 const loginFormSubtmit = document.getElementById("login-submit")
 const loginFormErrMsg = document.getElementById("login-error-msg")
 
+
 loginFormSubtmit.addEventListener("click",(e) =>{
     e.preventDefault();
     const CPR = loginForm.CPR.value;

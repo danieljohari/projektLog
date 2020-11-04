@@ -2,14 +2,22 @@ package Java;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.sql.Connection;
 
-class DBComm {
+
+class DBDownload {
     private static Connection connection;
-    private PreparedStatement prep ;
+    private PreparedStatement prep;
+    private static Connector Connector;
+
+
 
     public static void main(String[] args) {
-        connection = Connector.getConnection();
-            System.out.println("Im In");
+        //connection = null;
+
+      connection = Connector.getConnection();
+
+
 
             //getHomeData();
             findUser("sabrina@dtu.dk");
@@ -19,7 +27,7 @@ class DBComm {
         //db.getHomeData();
 
 
-    public DBComm(){
+    public DBDownload(){
 
 
 
@@ -37,8 +45,8 @@ class DBComm {
             Statement statement = connection.createStatement();
             ResultSet rs = statement.executeQuery(sql);
             while (rs.next()){
-//rs.getDataType( tal) ; giver os en datatype på den 1, 2 osv. plads -
-// Hvad sker hvis vi forsøger at hente et Int fra String?
+//rs.getDataType( tal) ; giver os en datatype paa den 1, 2 osv. plads -
+// Hvad sker hvis vi forsoger at hente et Int fra String?
 
                 System.out.println(rs.getInt(1) + rs.getString("mail") + rs.getString("pass"));
 //hvad hvis vi henviser til det ud fra navne fremfor index?
@@ -59,8 +67,8 @@ class DBComm {
             Statement statement = connection.createStatement();
             ResultSet rs = statement.executeQuery(sql);
             while(rs.next()){
-//rs.getDataType( tal) ; giver os en datatype på den 1, 2 osv. plads -
-// Hvad sker hvis vi forsøger at hente et Int fra String?
+//rs.getDataType( tal) ; giver os en datatype paa den 1, 2 osv. plads -
+// Hvad sker hvis vi forsoger at hente et Int fra String?
 
                 System.out.println(
                         "row:" + rs.getInt(1) +"\n" +
