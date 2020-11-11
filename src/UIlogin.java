@@ -1,5 +1,3 @@
-package Java;
-
 import java.util.Scanner;
 
 // Scanner keyboard = bruger indtaster med given værdi fra keyboard

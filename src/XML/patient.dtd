@@ -1,0 +1,24 @@
+<!ELEMENT patient (oplysninger*)>
+
+
+<!ELEMENT oplysninger (oplysning*,indkaldelser*)>
+
+<!ELEMENT oplysning (cpr,mail,password)>
+
+        <!ELEMENT cpr (#PCDATA)>
+        <!ELEMENT mail (#PCDATA)>
+        <!ELEMENT password (#PCDATA)>
+
+
+
+
+<!ELEMENT indkaldelser (aftale*, undersoegelser*)>
+
+        <!ELEMENT aftale (dato,tid,adresse,afdeling)>
+
+        <!ELEMENT dato (#PCDATA)>
+        <!ELEMENT tid (#PCDATA)>
+        <!ELEMENT adresse (#PCDATA)>
+        <!ELEMENT afdeling (#PCDATA)>
+
+        <!ELEMENT undersoegelser ()>

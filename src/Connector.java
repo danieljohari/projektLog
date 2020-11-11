@@ -1,4 +1,4 @@
-package Java;
+
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,9 +8,10 @@ public class Connector {
     //private static Connection connection;
 
 
-    private Connector() {
+    public Connector() {
 
     }
+
 
     public static Connection getConnection() {
         Connection connection = null;
