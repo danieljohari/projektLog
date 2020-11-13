@@ -25,7 +25,7 @@ public class Connector {
                         String user, pass, url;
                         user = "daniel";
                         pass = "Johari";
-                        url = "jdbc:mysql://192.168.239.22:3306/PatientPortal?serverTimezone=Europe/Amsterdam&amp";
+                        url = "jdbc:mariadb://192.168.239.22:3306/PatientPortal?serverTimezone=Europe/Amsterdam&amp";
 
 
 
