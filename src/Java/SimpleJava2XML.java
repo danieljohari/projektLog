@@ -1,3 +1,6 @@
+package Java;
+
+import Java.Person;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
@@ -23,7 +26,7 @@ public class SimpleJava2XML {
             String xmlstring = xmlMapper.writeValueAsString(henning);
             System.out.println(xmlstring);
 
-            File xmlOutput = new File("output.xml");
+            File xmlOutput = new File("henning.xml");
             FileWriter fileWriter = new FileWriter(xmlOutput);
             fileWriter.write(xmlstring);
 

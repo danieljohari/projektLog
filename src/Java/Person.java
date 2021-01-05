@@ -1,3 +1,7 @@
+package Java;
+
+import java.beans.Expression;
+
 //Holding information about our persons.
 public class Person {
     public String getFnavn() {

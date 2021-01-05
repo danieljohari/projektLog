@@ -1,26 +1,33 @@
+package Java;
+
+import Java.Connector;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+//import Java.Connector.java;
 
 
 public class DBDownload {
-    private static Connection connection;
+   public static Connection connection;
     private PreparedStatement prep;
 
+static Connector connector = new Connector();
 
 
 
     public static void main(String[] args) {
         //connection = null;
 
-      connection = Connector.getConnection();
+      //connection = Java.Connector.getConnection();
+      connection = connector.getConnection();
 
 
 
             //getHomeData();
-            findUser("sabrina@dtu.dk", "hejmeddig");
+            findUser("najmo@dtu.dk", "hejmeddig");
 
         }
 
@@ -100,7 +107,7 @@ public class DBDownload {
 
     private static String findbruger(String mail, String Pass) {
         String UserCPR = null;
-        String sqlFindUser = "\n" + "select idloginoplysninger, cpr, mail from PatientPortal.loginoplysninger where cpr password = 'Johari'¨and mail = 'daniel@dtu.dk'; ";
+        String sqlFindUser = "\n" + "select idloginoplysninger, cpr, mail from PatientPortal.loginoplysninger where cpr password = 'Johari' and mail = 'daniel@dtu.dk'; ";
 
        // ResultSet Rs = statement.e
 

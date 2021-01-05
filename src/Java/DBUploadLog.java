@@ -1,5 +1,11 @@
+package Java;
+
+import Java.Connector;
+
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.Time;
 
 public class DBUploadLog {
     private static UIlogin ui;
@@ -7,6 +13,8 @@ public class DBUploadLog {
     private static String Mail;
     private static String Password;
     private static Connection connection;
+
+
 
     public static void main(String[] args) {
         // Class.forName("com.mysql.cj.jdbc.Driver");
