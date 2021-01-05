@@ -10,15 +10,21 @@ public class CGIdBvalidation {
 
    }
 
-    public static Connection connection;
-    static Connector connector = new Connector();
+    //public static Connection connection;
+    //static Connector connector = new Connector();
 
+    private static final String jdbcDriver = "org.mariadb.jdbc.Driver";
+    private static final String dbUrl = "jdbc:mariadb://su2.eduhost.dk:3306/";
+    private static final String dbName = "PatientPortal?";
+    private static final String dbUsername = "daniel";
+    private static final String dbPassword = "Johari";
+    private static Connection connection = null;
     static String inputFraCgi = null;
     static String[] data;
     static String[] clientResponse;
-    static String cprTilDb;
+    static String mailTilDb;
     static String paswdTilDb;
-    static String cprSql = null;
+    static String mailsql = null;
     static String paswdSql = null;
     static Time timeSql = null;
     static Date dateSql = null;
@@ -26,32 +32,53 @@ public class CGIdBvalidation {
 
     public static void main(String[] args) {
         showHead();
-        connector.getConnection();
+        //connector.getConnection();
+        getConnection();
+
+
         try{
             BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
             data = new String[]{in.readLine()};
             inputFraCgi = data[0];
             clientResponse = inputFraCgi.split("&");
-            String[] cpr;
-            cpr = clientResponse[0].split("=");
-            cprTilDb = cpr[1];
+            String[] mail;
+            mail = clientResponse[0].split("=");
+            mailTilDb = mail[1];
+            mailTilDb = mailTilDb.replace("%40", "@");
+            System.out.println(mailTilDb);
             String[] paswd;
             paswd = clientResponse[1].split("=");
             paswdTilDb = paswd[1];
-            if (findUser(cprTilDb, paswdTilDb)) {
+            System.out.println(paswdTilDb);
+            if (findUser(mailTilDb, paswdTilDb)) {
                 getAppointment();
             }
         } catch (IOException ioe) {
+
+
             System.out.println("<P>IOException reading POST data: " + ioe + "</P>");
         }
         showTail();
 
     }
 
+    private static Connection getConnection() {
+        try {
+            if (connection == null || connection.isClosed()) {
+                Class.forName(jdbcDriver);
+                connection = DriverManager.getConnection(dbUrl + dbName, dbUsername, dbPassword);
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return connection;
+    }
+
+
     private static void getAppointment() {
         try {
-            String sql = "select Tid,Dato,Meddelelser from PatientPortal.PatientTider where cpr= '" +
-                    cprTilDb + "'";
+            String sql = "select Tid,Dato,Meddelelser from PatientPortal.PatientTider where Mail= '" +
+                    mailTilDb + "'";
             Statement statement = connection.createStatement();
             ResultSet rs = statement.executeQuery(sql);
             while (rs.next()) {
@@ -80,19 +107,20 @@ public class CGIdBvalidation {
     }
 
 
-    private static boolean findUser(String cprTilDb, String paswdTilDb) {
+    private static boolean findUser(String mailTilDb, String paswdTilDb) {
+
             try {
-                String sql = "select * from PatientPortal.loginoplysninger where CPR= " + "'" + cprTilDb + "'" + "and Kode ="
+                String sql = "select * from PatientPortal.loginoplysninger where Mail= " + "'" + mailTilDb + "'" + "and Kode ="
                         + "'" + paswdTilDb + "'";
                 Statement statement = connection.createStatement();
                 ResultSet rs = statement.executeQuery(sql);
                 rs.next();
-                cprSql = rs.getString("CPR");
+                mailsql = rs.getString("Mail");
                 paswdSql = rs.getString("Kode");
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-            return cprTilDb.equals(cprSql) && paswdTilDb.equals(paswdSql);
+            return mailTilDb.equals(mailTilDb) && paswdTilDb.equals(paswdSql);
         }
 
 

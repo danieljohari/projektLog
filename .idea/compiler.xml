@@ -11,7 +11,7 @@
     </annotationProcessing>
     <bytecodeTargetLevel target="8">
       <module name="LOG" target="1.5" />
-      <module name="LOGIN" target="1.5" />
+      <module name="LOGIN" target="7" />
       <module name="maven" target="1.5" />
       <module name="Simple2.1" target="1.5" />
     </bytecodeTargetLevel>

@@ -20,14 +20,14 @@ public class Connector {
                 if (connection == null || connection.isClosed()) {
                     try {
                        // Class.forName("com.mysql.cj.jdbc.Driver");
-                        Class.forName("org.mariadb.jdbc.Driver");
+                       // Class.forName("org.mariadb.jdbc.Driver");
 
                         //mysql skal andres senere til MariaDB, localhost til en IPaddresse -
 
                         String user, pass, url;
                         user = "daniel";
                         pass = "Johari";
-                        url = "jdbc:mariadb://130.226.195.37:39022/PatientPortal?serverTimezone=Europe/Amsterdam&amp";
+                        url = "jdbc:mariadb://192.168.239.22:3306/PatientPortal?serverTimezone=Europe/Amsterdam&amp";
                        // url = "jdbc:mariadb://192.168.239.22:3306/PatientPortal?serverTimezone=Europe/Amsterdam&amp";
                         //url = "jdbc:mariadb://130.226.195.37:39022/PatientPortal?";
 
