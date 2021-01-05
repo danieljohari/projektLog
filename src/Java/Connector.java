@@ -27,7 +27,7 @@ public class Connector {
                         String user, pass, url;
                         user = "daniel";
                         pass = "Johari";
-                        url = "jdbc:mariadb://130.226.195.37:39022:3306/PatientPortal?serverTimezone=Europe/Amsterdam&amp";
+                        url = "jdbc:mariadb://130.226.195.37:39022/PatientPortal?serverTimezone=Europe/Amsterdam&amp";
                        // url = "jdbc:mariadb://192.168.239.22:3306/PatientPortal?serverTimezone=Europe/Amsterdam&amp";
                         //url = "jdbc:mariadb://130.226.195.37:39022/PatientPortal?";
 
