@@ -94,7 +94,7 @@ ul li ul li a:hover {
 }
 
 
-.container-form{
+div.container-form{
     padding: 20px 0;
     text-align-all: center;
     color: black;
@@ -103,9 +103,9 @@ ul li ul li a:hover {
     box-shadow: 10px 15px rgba(0,0,0,.1);
     display: grid;
     grid-template-columns: 350px 150px;
-    top: 100px;
-    left: 100px;
-    position: relative;
+    top: 80px;
+    left: 400px;
+    position: absolute;
 
 }
 form {
@@ -143,3 +143,5 @@ input, select{
     -moz-border-radius: 100px;
     background-color: green;
 }
+
+

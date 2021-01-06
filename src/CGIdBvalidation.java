@@ -1,4 +1,4 @@
-package Java;
+
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -19,12 +19,14 @@ public class CGIdBvalidation {
     private static final String dbUsername = "daniel";
     private static final String dbPassword = "Johari";
     private static Connection connection = null;
+
+
     static String inputFraCgi = null;
     static String[] data;
     static String[] clientResponse;
-    static String mailTilDb;
+    static String cprTilDb;
     static String paswdTilDb;
-    static String mailsql = null;
+    static String cprsql = null;
     static String paswdSql = null;
     static Time timeSql = null;
     static Date dateSql = null;
@@ -32,7 +34,7 @@ public class CGIdBvalidation {
 
     public static void main(String[] args) {
         showHead();
-        //connector.getConnection();
+       //connection= connector.getConnection();
         getConnection();
 
 
@@ -41,16 +43,13 @@ public class CGIdBvalidation {
             data = new String[]{in.readLine()};
             inputFraCgi = data[0];
             clientResponse = inputFraCgi.split("&");
-            String[] mail;
-            mail = clientResponse[0].split("=");
-            mailTilDb = mail[1];
-            mailTilDb = mailTilDb.replace("%40", "@");
-            System.out.println(mailTilDb);
+            String[] cpr;
+            cpr = clientResponse[0].split("=");
+            cprTilDb = cpr[1];
             String[] paswd;
             paswd = clientResponse[1].split("=");
             paswdTilDb = paswd[1];
-            System.out.println(paswdTilDb);
-            if (findUser(mailTilDb, paswdTilDb)) {
+            if (findUser(cprTilDb, paswdTilDb)) {
                 getAppointment();
             }
         } catch (IOException ioe) {
@@ -75,10 +74,12 @@ public class CGIdBvalidation {
     }
 
 
+
+
     private static void getAppointment() {
         try {
-            String sql = "select Tid,Dato,Meddelelser from PatientPortal.PatientTider where Mail= '" +
-                    mailTilDb + "'";
+            String sql = "select Tid,Dato,Meddelelser from PatientPortal.PatientTider where CPR= '" +
+                    cprTilDb + "'";
             Statement statement = connection.createStatement();
             ResultSet rs = statement.executeQuery(sql);
             while (rs.next()) {
@@ -102,25 +103,31 @@ public class CGIdBvalidation {
     }
 
     private static void showTail() {
-        System.out.println("</table>\n" + "</body>\n" + "</HTML>");
+        System.out.println("</table>\n" +
+                "\n" +
+                "    </div>\n" +
+                "\n" +
+                "\n" +
+                "</body>\n" +
+                "</html>");
 
     }
 
 
-    private static boolean findUser(String mailTilDb, String paswdTilDb) {
+    private static boolean findUser(String cprTilDb, String paswdTilDb) {
 
             try {
-                String sql = "select * from PatientPortal.loginoplysninger where Mail= " + "'" + mailTilDb + "'" + "and Kode ="
+                String sql = "select CPR,Kode from PatientPortal.loginoplysninger where CPR= " + "'" + cprTilDb + "'" + "and Kode ="
                         + "'" + paswdTilDb + "'";
                 Statement statement = connection.createStatement();
                 ResultSet rs = statement.executeQuery(sql);
                 rs.next();
-                mailsql = rs.getString("Mail");
+                cprsql = rs.getString("CPR");
                 paswdSql = rs.getString("Kode");
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-            return mailTilDb.equals(mailTilDb) && paswdTilDb.equals(paswdSql);
+            return cprTilDb.equals(cprsql) && paswdTilDb.equals(paswdSql);
         }
 
 
@@ -131,7 +138,7 @@ public class CGIdBvalidation {
         System.out.println("<HTML>");
         System.out.println("<HEAD>");
         System.out.println("<TITLE>The CGIpost application</TITLE>");
-        System.out.println("    <link rel=\"stylesheet\" type=\"text/css\" href=\"/Forside.css\">\n" +
+        System.out.println("    <link rel=\"stylesheet\" type=\"text/css\" href=\"../CSS/Forside.css\">\n" +
                 "    <link rel=\"stylesheet\" href=\"https://use.fontawesome.com/releases/v5.7.0/css/all.css\">\n");
         System.out.println("<META http-equiv=\"content-type\" content=\"text/html; charset=UTF-8\">");
         System.out.println("<META http-equiv=\"Pragma\" content=\"no-cache\">");
@@ -148,7 +155,7 @@ public class CGIdBvalidation {
                 "\n" +
                 "            <li><a href=\"#\"><b>Service</b></a>\n" +
                 "                <ul>\n" +
-                "                    <li><a href=\"Tid.html\">Tider og Bestilling</a></li>\n" +
+                "                    <li><a href=\"/cgi-bin/CGIAppointment\">Tider og Bestilling</a></li>\n" +
                 "                    <br><br>\n" +
                 "                    <li><a href=\"Indkaldelse.html\">Se Indkaldelser</a></li>\n" +
                 "                </ul>\n" +
@@ -178,23 +185,14 @@ public class CGIdBvalidation {
                 "        <a href=\"#\" class=\"btn\"><b>VIS MERE</b></a>\n" +
                 "    </div> -->\n" +
                 "\n" +
-                "\n" +
-                "    <table>\n" +
+                "</header>" +
+                "<table>\n" +
                 "        <caption><b>Indlæggelses Oplysninger</b></caption>\n" +
                 "        <tr>\n" +
                 "            <th>Meddelelse:</th>\n" +
                 "            <th>Dato:</th>\n" +
                 "            <th>Tid:</th>\n" +
-                "        </tr>\n" +
-                "        <tr>\n" +
-                "            <td></td>\n" +
-                "            <td></td>\n" +
-                "            <td></td>\n" +
-                "        </tr>\n" +
-                "    </table>\n" +
-                "\n" +
-                "    </div>\n" +
-                "</header>"
+                "        </tr>"
 
         );
 

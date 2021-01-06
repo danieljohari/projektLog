@@ -34,22 +34,41 @@
             </li>
         </ul>
 
+    </div>
+</header>
+
 <!-- fra :    https://www.youtube.com/watch?v=ShpH_1EPox0-->
 
-        <div class="container-form">
+        <div class="container-form" >
             <form action="#">
                 <h2 class="heading-head">Bestil Her - Vælg:</h2>
 
                 <div class="form-field">
-                    <p>Navn:</p>
-                <input type="text" placeholder="Indtast navn">
+                    <p>CPR:</p>
+                <input type="username" placeholder="Indtast CPR">
                 </div>
-
 
                 <div class="form-field">
-                    <p>Email:</p>
-                    <input type="email" placeholder="Indtast Email">
+                    <p>Vælg Hospital:</p>
+                    <select name="select" id="#">
+                        <option value="1"></option>
+                        <option value="2">Rigs Hospital</option>
+                        <option value="3">Glostrup Hospital</option>
+                        <option value="4">Bispebjerg Hospital</option>
+                    </select>
                 </div>
+
+                <div class="form-field">
+                    <p>Vælg Afdeling:</p>
+                    <select name="select" id="#">
+                        <option value="1"></option>
+                        <option value="2">Røntgen afdeling</option>
+                        <option value="3">Kardiologisk afdeling</option>
+                        <option value="4">Reumatologisk afdeling</option>
+                    </select>
+
+                </div>
+
 
                 <div class="form-field">
                     <p>Dato:</p>
@@ -61,15 +80,7 @@
                     <input type="time">
                 </div>
 
-                <div class="form-field">
-                    <p>Vælg behandler:</p>
-                    <select name="select" id="#">
-                        <option value="1"></option>
-                        <option value="2">Pia K.</option>
-                        <option value="3">Inger Støjberg.</option>
-                        <option value="4">Kristian Thulesen</option>
-                    </select>
-                </div>
+
 
                 <div class="text-field">
                         <p>Angående:</p>
@@ -78,40 +89,17 @@
 
                     <button class="btn">Bestil</button>
 
-                        <p><a href="#">Ændre eller Aflys?</a></p>
+
 
             </form>
 
 
         </div>
     </div>
-<!--
-        <div class="container">
-            <div class="calendar">
-                <div class="month">
-                    <i class="fas fa-angle-left prev"></i>
-                    <div class="date">
-                        <h1></h1>
-                        <p></p>
-                    </div>
-                    <i class="fas fa-angle-right next"></i>
-                </div>
-                <div class="weekdays">
-                    <div>Sun</div>
-                    <div>Mon</div>
-                    <div>Tue</div>
-                    <div>Wed</div>
-                    <div>Thu</div>
-                    <div>Fri</div>
-                    <div>Sat</div>
-                </div>
-                <div class="days"></div>
-            </div>
--->
+
     </div>
 
 
-</header>
 
 
 
