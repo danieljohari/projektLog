@@ -42,22 +42,22 @@ public class CGIAppointment {
             data = new String[]{in.readLine()};
             inputCGI = data[0];
             appointment = inputCGI.split("&");
-            hospital = appointment[0].split("=");
+            cpr = appointment[0].split("=");
+            cprsql = cpr[1].replaceAll("\\+", " ");
+            hospital = appointment[1].split("=");
             hospitalSql = hospital[1].replaceAll("\\+", " ");
-            departments = appointment[1].split("=");
+            departments = appointment[2].split("=");
             departmentsSql = departments[1].replaceAll("\\+", " ");
             departmentsSql1 = departmentsSql.replaceAll("%2C", ",");
             departmentsSql2 = departmentsSql1.replaceAll("%C3%B8", "oe");
-            date = appointment[2].split("=");
+            date = appointment[3].split("=");
             dateSql = Date.valueOf(date[1]);
-            time = appointment[3].split("=");
+            time = appointment[4].split("=");
             timeString = time[1].replaceAll("%3A", ":");
             SimpleDateFormat format = new SimpleDateFormat("HH:mm");
             java.sql.Time sqlTime = new java.sql.Time(format.parse(timeString).getTime());
             timeSql = sqlTime;
-            cpr = appointment[4].split("=");
-            cprsql = cpr[1];
-            setAppointment(cprsql,timeSql,dateSql,hospitalSql,departmentsSql2);
+            setAppointment(cprsql, hospitalSql, departmentsSql2, dateSql, timeSql);
             showHead();
             getAppointment();
             showTail();
@@ -70,7 +70,10 @@ public class CGIAppointment {
     }
 
     private static void showTail() {
-        System.out.println("</table>\n" + "</body>\n" + "</HTML>");
+        System.out.println(" </table>\n" +
+                "    </div>\n" +
+                "</body>\n" +
+                "</html>");
     }
 
     private static void getAppointment() {
@@ -91,12 +94,14 @@ public class CGIAppointment {
         }
     }
 
+
+
     private static void showBody() {
         System.out.println("    <tr>\n" +
                 "        <td>" + hospitalSql + "</td>\n" +
-                "        <td>" + departmentsSql + "</td>\n" +
-                "        <td>" + timeSql + "</td>\n" +
+                "        <td>" + departmentsSql.replaceAll("%C3%B8", "ø") + "</td>\n" +
                 "        <td>" + dateSql + "</td>\n" +
+                "        <td>" + timeSql + "</td>\n" +
                 "    </tr>\n");
     }
 
@@ -107,9 +112,9 @@ public class CGIAppointment {
         System.out.println("<HTML>");
         System.out.println("<HEAD>");
         System.out.println("<TITLE>The CGIpost application</TITLE>");
-        System.out.println("    <link rel=\"stylesheet\" type=\"text/css\" href=\"../CSS/tid.css\">\n" +
+        System.out.println("    <link rel=\"stylesheet\" type=\"text/css\" href=\"../CSS/Indkaldelser.css\">\n" +
                 "    <link rel=\"stylesheet\" href=\"https://use.fontawesome.com/releases/v5.7.0/css/all.css\">\n");
-        System.out.println("<META http-equiv=\"content-type\" content=\"text/html; charset=UTF-8\">");
+        System.out.println("<META http-equiv=\"content-type\" content=\"text/html; charset= UTF-8\">");
         System.out.println("<META http-equiv=\"Pragma\" content=\"no-cache\">");
         System.out.println("<META http-equiv=\"expires\" content=\"0\">");
         System.out.println("</HEAD>");
@@ -120,103 +125,52 @@ public class CGIAppointment {
                 "            <img src=\"../IMG/Logo.png\">\n" +
                 "        </div>\n" +
                 "        <ul>\n" +
-                "            <li class=\"active\"><a href=\"Forside.html\"><b>Hjem</b></a> </li>\n" +
+                "            <li class=\"active\"><a href=\"/Forside.html\"><b>Hjem</b></a> </li>\n" +
                 "            <li><a href=\"#\"><b>Service</b></a>\n" +
                 "                <ul>\n" +
-                "                    <li><a href=\"/cgi-bin/CGIAppointment\">Tider og Bestilling</a></li>\n" +
+                "                    <li><a href=\"/Tid.html\">Tider og Bestilling</a></li>\n" +
                 "                    <br><br>\n" +
-                "                    <li><a href=\"Indkaldelse.html\">Se Indkaldelser</a></li>\n" +
+                "                    <li><a href=\"/Indkaldelse.html\">Se Indkaldelser</a></li>\n" +
                 "                </ul>\n" +
                 "            </li>\n" +
                 "            <li><a href=\"#\"><b>Journal</b></a>\n" +
                 "                <ul>\n" +
-                "                    <li><a href=\"Journal.html\">Se Journal</a></li>\n" +
+                "                    <li><a href=\"/Journal.html\">Se Journal</a></li>\n" +
                 "                    <br><br>\n" +
+                "\n" +
                 "\n" +
                 "                </ul>\n" +
                 "            </li>\n" +
-                "\n" +
-                "            <li><a href=\"Kontakt.html\"><b>Kontakt</b></a>\n" +
+                "            <li><a href=\"/Kontakt.html\"><b>Kontakt</b></a>\n" +
                 "\n" +
                 "            </li>\n" +
                 "        </ul>\n" +
-                "\n" +
+                "    </div>\n" +
+                "    <div class = indkald>\n" +
+                "        <h1>Indkaldelser</h1>\n" +
                 "    </div>\n" +
                 "</header>\n" +
-                "\n" +
-                "\n" +
-                "        <div class=\"container-form\" >\n" +
-                "            <form action=\"#\">\n" +
-                "                <h2 class=\"heading-head\">Bestil Her - Vælg:</h2>\n" +
-                "\n" +
-                "                <div class=\"form-field\">\n" +
-                "                    <p>CPR:</p>\n" +
-                "                <input type=\"username\" placeholder=\"Indtast CPR\">\n" +
-                "                </div>\n" +
-                "\n" +
-                "                <div class=\"form-field\">\n" +
-                "                    <p>Vælg Hospital:</p>\n" +
-                "                    <select name=\"select\" id=\"#\">\n" +
-                "                        <option value=\"1\"></option>\n" +
-                "                        <option value=\"2\">Rigs Hospital</option>\n" +
-                "                        <option value=\"3\">Glostrup Hospital</option>\n" +
-                "                        <option value=\"4\">Bispebjerg Hospital</option>\n" +
-                "                    </select>\n" +
-                "                </div>\n" +
-                "\n" +
-                "                <div class=\"form-field\">\n" +
-                "                    <p>Vælg Afdeling:</p>\n" +
-                "                    <select name=\"select\" id=\"#\">\n" +
-                "                        <option value=\"1\"></option>\n" +
-                "                        <option value=\"2\">Røntgen afdeling</option>\n" +
-                "                        <option value=\"3\">Kardiologisk afdeling</option>\n" +
-                "                        <option value=\"4\">Reumatologisk afdeling</option>\n" +
-                "                    </select>\n" +
-                "\n" +
-                "                </div>\n" +
-                "\n" +
-                "\n" +
-                "                <div class=\"form-field\">\n" +
-                "                    <p>Dato:</p>\n" +
-                "                    <input type=\"date\">\n" +
-                "                </div>\n" +
-                "\n" +
-                "                <div class=\"form-field\">\n" +
-                "                    <p>Tid:</p>\n" +
-                "                    <input type=\"time\">\n" +
-                "                </div>\n" +
-                "\n" +
-                "\n" +
-                "\n" +
-                "                <div class=\"text-field\">\n" +
-                "                        <p>Angående:</p>\n" +
-                "                   <textarea></textarea>\n" +
-                "                </div>\n" +
-                "\n" +
-                "                    <button class=\"btn\">Bestil</button>\n" +
-                "\n" +
-                "\n" +
-                "\n" +
-                "            </form>\n" +
-                "\n" +
-                "\n" +
-                "        </div>\n" +
-                "    </div>\n" +
-                "\n" +
-                "    </div>\n" +
-                "\n" +
-                "\n");
+                "    <div class=\"title\">\n" +
+                "        <table>\n" +
+                "            <tr>\n" +
+                "                <th>Hospital:</th>\n" +
+                "                <th>Afdeling:</th>\n" +
+                "                <th>Dato:</th>\n" +
+                "                <th>Tid:</th>\n" +
+                "            </tr>"
+        );
     }
 
-    private static void setAppointment(String cprsql, Time timeSql, Date dateSql, String hospitalSql, String departmentsSql2) {
+    private static void setAppointment(String cprsql, String hospitalSql, String departmentsSql2, Date dateSql, Time timeSql) {
         try{
             String sql = "INSERT INTO PatientPortal.Bestilling (CPR, Hospital,Afdeling, Dato, Tid) VALUES (?,?,?,?,?)";
             PreparedStatement preparedStatement = getConnection().prepareStatement(sql);
             preparedStatement.setString(1,cprsql);
             preparedStatement.setString(2,hospitalSql);
             preparedStatement.setString(3, departmentsSql2);
-            preparedStatement.setTime(4, timeSql);
-            preparedStatement.setDate(5, dateSql);
+            preparedStatement.setDate(4, dateSql);
+            preparedStatement.setTime(5, timeSql);
+            preparedStatement.execute();
 
         } catch (SQLException e) {
             e.printStackTrace();

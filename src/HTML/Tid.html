@@ -37,34 +37,32 @@
     </div>
 </header>
 
-<!-- fra :    https://www.youtube.com/watch?v=ShpH_1EPox0-->
-
         <div class="container-form" >
-            <form action="#">
+            <form action="/cgi-bin/CGIAppointment" method ="post">
                 <h2 class="heading-head">Bestil Her - Vælg:</h2>
 
                 <div class="form-field">
                     <p>CPR:</p>
-                <input type="username" placeholder="Indtast CPR">
+                <input type="username" placeholder="Indtast CPR" name="CPR">
                 </div>
 
                 <div class="form-field">
                     <p>Vælg Hospital:</p>
-                    <select name="select" id="#">
-                        <option value="1"></option>
-                        <option value="2">Rigs Hospital</option>
-                        <option value="3">Glostrup Hospital</option>
-                        <option value="4">Bispebjerg Hospital</option>
+                    <select name="Hospital" >
+                        <option></option>
+                        <option>Rigs Hospital</option>
+                        <option>Glostrup Hospital</option>
+                        <option>Bispebjerg Hospital</option>
                     </select>
                 </div>
 
                 <div class="form-field">
                     <p>Vælg Afdeling:</p>
-                    <select name="select" id="#">
-                        <option value="1"></option>
-                        <option value="2">Røntgen afdeling</option>
-                        <option value="3">Kardiologisk afdeling</option>
-                        <option value="4">Reumatologisk afdeling</option>
+                    <select name="Afdeling" >
+                        <option></option>
+                        <option>Røntgen afdeling</option>
+                        <option>Kardiologisk afdeling</option>
+                        <option>Reumatologisk afdeling</option>
                     </select>
 
                 </div>
@@ -72,12 +70,12 @@
 
                 <div class="form-field">
                     <p>Dato:</p>
-                    <input type="date">
+                    <input type="date" name="Dato">
                 </div>
 
                 <div class="form-field">
                     <p>Tid:</p>
-                    <input type="time">
+                    <input type="time" name="Tid">
                 </div>
 
 
@@ -95,10 +93,6 @@
 
 
         </div>
-    </div>
-
-    </div>
-
 
 
 
