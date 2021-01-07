@@ -1,13 +1,7 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.sql.*;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 
-
-public class CGIAppointment {
-    public CGIAppointment(){
+public class CGIDelete {
+    public CGIDelete(){
 
     }
 
@@ -17,64 +11,30 @@ public class CGIAppointment {
     private static final String dbUsername = "daniel";
     private static final String dbPassword = "Johari";
     private static Connection connection = null;
-    static String inputCGI = null;
-    static String[] data;
-    static String[] appointment;
     static String cprsql = null;
-    static String timeString = null;
     static Time timeSql = null;
     static Date dateSql = null;
     static int idBestilling = 0;
     static String hospitalSql = null;
-    static String departmentsSql = null;
-    static String departmentsSql1 = null;
     static String departmentsSql2 = null;
-
 
     public static void main(String[] args) {
         getConnection();
-        try{
-            String[] cpr;
-            String[] hospital;
-            String[] departments;
-            String[] date;
-            String[] time;
-            BufferedReader in =  new BufferedReader(new InputStreamReader(System.in));
-            data = new String[]{in.readLine()};
-            inputCGI = data[0];
-            appointment = inputCGI.split("&");
-            cpr = appointment[0].split("=");
-            cprsql = cpr[1].replaceAll("\\+", " ");
-            hospital = appointment[1].split("=");
-            hospitalSql = hospital[1].replaceAll("\\+", " ");
-            departments = appointment[2].split("=");
-            departmentsSql = departments[1].replaceAll("\\+", " ");
-            departmentsSql1 = departmentsSql.replaceAll("%2C", ",");
-            departmentsSql2 = departmentsSql1.replaceAll("%C3%B8", "oe");
-            date = appointment[3].split("=");
-            dateSql = Date.valueOf(date[1]);
-            time = appointment[4].split("=");
-            timeString = time[1].replaceAll("%3A", ":");
-            SimpleDateFormat format = new SimpleDateFormat("HH:mm");
-            java.sql.Time sqlTime = new java.sql.Time(format.parse(timeString).getTime());
-            timeSql = sqlTime;
-            setAppointment(cprsql, hospitalSql, departmentsSql2, dateSql, timeSql);
-            showHead();
-            getAppointment();
-            showTail();
-
-        } catch (ParseException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        showHead();
+        showBody();
+        showTail();
+        getAppointment();
+        deleteAppointment();
     }
 
-    private static void showTail() {
-        System.out.println(" </tbody>\n" +
-                "        </table>\n" +
-                "</body>\n" +
-                "</html>");
+    private static void deleteAppointment() {
+        try {
+            String sql2 = "DELETE FROM PatientPortal.Bestilling WHERE idBestilling = '"+idBestilling+"' ";
+            PreparedStatement pstatement = connection.prepareStatement(sql2);
+            pstatement.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private static void getAppointment() {
@@ -96,7 +56,12 @@ public class CGIAppointment {
         }
     }
 
-
+    private static void showTail() {
+        System.out.println(" </tbody>\n" +
+                "        </table>\n" +
+                "</body>\n" +
+                "</html>");
+    }
 
     private static void showBody() {
         System.out.println("    <tr>\n" +
@@ -105,8 +70,8 @@ public class CGIAppointment {
                 "        <td>" + dateSql + "</td>\n" +
                 "        <td>" + timeSql + "</td>\n" +
                 "<td>\n" +
-                        "                <form action=\"/cgi-bin/CGIDelete\"><input type=\"submit\" value=\"delete\"><input type=\"hidden\" value=\""+idBestilling+"\"> </form>\n" +
-                        "            </td>"+
+                "                <form action=\"/cgi-bin/CGIDelete\"><input type=\"submit\" value=\"delete\"><input type=\"hidden\" value=\""+idBestilling+"\"> </form>\n" +
+                "            </td>"+
                 "    </tr>\n");
     }
 
@@ -167,22 +132,6 @@ public class CGIAppointment {
                 "            </tr>\n" +
                 "            </thead>\n" +
                 "            <tbody>");
-    }
-
-    private static void setAppointment(String cprsql, String hospitalSql, String departmentsSql2, Date dateSql, Time timeSql) {
-        try{
-            String sql = "INSERT INTO PatientPortal.Bestilling (CPR, Hospital,Afdeling, Dato, Tid) VALUES (?,?,?,?,?)";
-            PreparedStatement preparedStatement = getConnection().prepareStatement(sql);
-            preparedStatement.setString(1,cprsql);
-            preparedStatement.setString(2,hospitalSql);
-            preparedStatement.setString(3, departmentsSql2);
-            preparedStatement.setDate(4, dateSql);
-            preparedStatement.setTime(5, timeSql);
-            preparedStatement.execute();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
     }
 
     private static Connection getConnection() {

@@ -86,66 +86,53 @@ ul li ul li a:hover {
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);
+
 }
 
 .title h1{
     color: #ffffff;
     font-size: 70px;
 }
-
-.button{
+table {
+    justify-items: center;
+    align-items: center;
+    border-collapse: collapse;
     position: absolute;
-    top: 65%;
+    top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);
 }
 
-.btn{
-    border: 1px solid #ffffff;
-    padding:10px 30px;
-    color: #ffffff;
-    text-decoration: none;
-    transition: 1s ease;
+thead{
+    float: top;
+    display: table-caption;
+    border-bottom: 2px solid black;
 }
 
-.btn:hover{
-    background-color: #fff;
-    color: #000;
+tbody {
+    display: block;
+    height: 200px;
+    overflow-y: auto;
+
 }
 
+tr th {
+width: 150px;
 
-table {
-    width: 400px;
-    height: 100px;
-    position: absolute;
-    top: 250px;
-    right: 5px;
 }
-
-caption {
-    font-size: 20px;
+tr td{
+    width: 150px;
 }
 
 
-th {
+
+th,td{
     text-align: center;
-    background-color: transparent;
-}
-
-table, th, td {
-    top: 0px;
-    margin-right: 0px;
-    width: auto;
-    border: 1px solid #000000;
-    border-collapse: collapse;
+    padding: 20px;
+    border: 2px solid black;
     color: black;
-    position: relative;
 }
 
-th, td {
-    padding: 15px;
-    width: auto;
-}
 
 tr:nth-child(even){
     background-color: white;
@@ -153,6 +140,7 @@ tr:nth-child(even){
 tr:nth-child(odd){
     background-color: lightsteelblue; /* LIGHTBLUE ELLER LIGHTSTEELBLUE PREF*/
 }
+
 
 
 .indkald{
