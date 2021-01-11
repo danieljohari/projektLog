@@ -1,3 +1,6 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.sql.*;
 
 public class CGIDelete {
@@ -12,24 +15,37 @@ public class CGIDelete {
     private static final String dbPassword = "Johari";
     private static Connection connection = null;
     static String cprsql = null;
+
     static Time timeSql = null;
     static Date dateSql = null;
-    static int idBestilling = 0;
+    static int idBestilling;
     static String hospitalSql = null;
     static String departmentsSql2 = null;
 
-    public static void main(String[] args) {
-        getConnection();
-        showHead();
-        showBody();
-        showTail();
-        getAppointment();
+
+    public static void main(String[] args)  {
+
+                getConnection();
+        BufferedReader in =  new BufferedReader(new InputStreamReader(System.in));
+        String data = null;
+        try {
+            data = in.readLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
         deleteAppointment();
+        showHead();
+        getAppointment();
+        showTail();
+
+
     }
 
     private static void deleteAppointment() {
         try {
-            String sql2 = "DELETE FROM PatientPortal.Bestilling WHERE idBestilling = '"+idBestilling+"' ";
+            String sql2 = "DELETE FROM PatientPortal.Bestilling WHERE idBestilling = "+ idBestilling+" ";
             PreparedStatement pstatement = connection.prepareStatement(sql2);
             pstatement.executeUpdate();
         } catch (Exception e) {
@@ -39,8 +55,7 @@ public class CGIDelete {
 
     private static void getAppointment() {
         try{
-            String sql1 = "SELECT Tid,Dato,Hospital,Afdeling, idBestilling FROM PatientPortal.Bestilling WHERE CPR= '" +
-                    cprsql + "'";
+            String sql1 = "SELECT Tid,Dato,Hospital,Afdeling, idBestilling FROM PatientPortal.Bestilling WHERE CPR= '" + cprsql + "'";
             Statement statement = connection.createStatement();
             ResultSet rs1 = statement.executeQuery(sql1);
             while (rs1.next()) {

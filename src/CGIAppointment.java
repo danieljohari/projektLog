@@ -1,3 +1,4 @@
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -20,7 +21,7 @@ public class CGIAppointment {
     static String inputCGI = null;
     static String[] data;
     static String[] appointment;
-    static String cprsql = null;
+   public static String cprsql = null;
     static String timeString = null;
     static Time timeSql = null;
     static Date dateSql = null;
@@ -69,6 +70,9 @@ public class CGIAppointment {
             e.printStackTrace();
         }
     }
+
+
+
 
     private static void showTail() {
         System.out.println(" </tbody>\n" +

@@ -31,6 +31,11 @@ public class CGIdBvalidation {
     static Time timeSql = null;
     static Date dateSql = null;
     static String meddelelserSql = null;
+    static int idBestilling = 0;
+    static String hospitalSql = null;
+    static String departmentsSql = null;
+    static String departmentsSql1 = null;
+    static String departmentsSql2 = null;
 
     public static void main(String[] args) {
         showHead();
@@ -77,15 +82,17 @@ public class CGIdBvalidation {
 
 
     private static void getAppointment() {
-        try {
-            String sql = "select Tid,Dato,Meddelelser from PatientPortal.PatientTider where CPR= '" +
-                    cprTilDb + "'";
+        try{
+            String sql1 = "SELECT Tid,Dato,Hospital,Afdeling, idBestilling FROM PatientPortal.Bestilling WHERE CPR= '" +
+                    cprsql + "'";
             Statement statement = connection.createStatement();
-            ResultSet rs = statement.executeQuery(sql);
-            while (rs.next()) {
-                timeSql = rs.getTime("Tid");
-                dateSql = rs.getDate("Dato");
-                meddelelserSql = rs.getString("Meddelelser");
+            ResultSet rs1 = statement.executeQuery(sql1);
+            while (rs1.next()) {
+                timeSql = rs1.getTime("Tid");
+                dateSql = rs1.getDate("Dato");
+                hospitalSql = rs1.getString("Hospital");
+                departmentsSql2 = rs1.getString("Afdeling");
+                idBestilling = rs1.getInt("idBestilling");
                 showBody();
             }
         } catch (SQLException e) {
@@ -94,12 +101,15 @@ public class CGIdBvalidation {
     }
 
     private static void showBody() {
-        System.out.println(
-                "    <tr>\n" +
-                        "        <td>" + meddelelserSql + "</td>\n" +
-                        "        <td>" + timeSql + "</td>\n" +
-                        "        <td>" + dateSql + "</td>\n" +
-                        "    </tr>\n");
+        System.out.println("    <tr>\n" +
+                "        <td>" + hospitalSql + "</td>\n" +
+                "        <td>" + departmentsSql2.replaceAll("%C3%B8", "ø") + "</td>\n" +
+                "        <td>" + dateSql + "</td>\n" +
+                "        <td>" + timeSql + "</td>\n" +
+                "<td>\n" +
+                "                <form action=\"/cgi-bin/CGIDelete\"><input type=\"submit\" value=\"delete\"><input type=\"hidden\" value=\""+idBestilling+"\"> </form>\n" +
+                "            </td>"+
+                "    </tr>\n");
     }
 
     private static void showTail() {
@@ -151,50 +161,53 @@ public class CGIdBvalidation {
                 "            <img src=\"../IMG/Logo.png\">\n" +
                 "        </div>\n" +
                 "        <ul>\n" +
-                "            <li class=\"active\"><a href=\"/Forside.html\"><b>Hjem</b></a> </li>\n" +
+                "            <li class=\"active\"><a href=\"Forside.html\"><b>Hjem</b></a> </li>\n" +
                 "\n" +
                 "            <li><a href=\"#\"><b>Service</b></a>\n" +
                 "                <ul>\n" +
-                "                    <li><a href=\"/Tid.html\">Tider og Bestilling</a></li>\n" +
+                "                    <li><a href=\"Tid.html\">Tider og Bestilling</a></li>\n" +
                 "                    <br><br>\n" +
-                "                    <li><a href=\"/Indkaldelse.html\">Se Indkaldelser</a></li>\n" +
+                "                    <li><a href=\"Indkaldelse.html\">Se Indkaldelser</a></li>\n" +
                 "                </ul>\n" +
                 "            </li>\n" +
                 "\n" +
                 "            <li><a href=\"#\"><b>Journal</b></a>\n" +
                 "                <ul>\n" +
-                "                    <li><a href=\"/Journal.html\">Se Journal</a></li>\n" +
+                "                    <li><a href=\"Journal.html\">Se Journal</a></li>\n" +
                 "                    <br><br>\n" +
                 "                </ul>\n" +
                 "            </li>\n" +
                 "\n" +
-                "            <li><a href=\"/Kontakt.html\"><b>Kontakt</b></a></li>\n" +
-                "            <li><a href=\"/index.html\"><b>Log Ud</b></a></li>\n" +
+                "            <li><a href=\"Kontakt.html\"><b>Kontakt</b></a></li>\n" +
+                "            <li><a href=\"index.html\"><b>Log Ud</b></a></li>\n" +
                 "\n" +
                 "\n" +
                 "        </ul>\n" +
-                "    </div>\n" +
-                "    <div class=\"title\">\n" +
-                "        <h1>PATIENT PORTALEN</h1>\n" +
-                "    </div>\n" +
-                "\n" +
-                "    <!--\n" +
-                "    <div class=\"button\">\n" +
-                "        <a href=#\n" +
-                "           class=\"btn\" target=\"_blank\"><b>SE VIDEO</b></a>\n" +
-                "        <a href=\"#\" class=\"btn\"><b>VIS MERE</b></a>\n" +
-                "    </div> -->\n" +
-                "\n" +
-                "</header>" +
+                "</div>\n" +
+                "</header>\n" +
                 "<table>\n" +
-                "        <caption><b>Indlæggelses Oplysninger</b></caption>\n" +
-                "        <tr>\n" +
-                "            <th>Meddelelse:</th>\n" +
-                "            <th>Dato:</th>\n" +
-                "            <th>Tid:</th>\n" +
-                "        </tr>"
-
-        );
+                "    <thead>\n" +
+                "    <tr>\n" +
+                "        <th id=\"hospital\">Hospital:</th>\n" +
+                "        <th id=\"afdeling\">Afdeling:</th>\n" +
+                "        <th id=\"dato\">Dato:</th>\n" +
+                "        <th id=\"tid\">Tid:</th>\n" +
+                "        <th id=\"delete\">Fjern:</th>\n" +
+                "    </tr>\n" +
+                "    </thead>\n" +
+                "    <tbody>\n" +
+                "    <tr>\n" +
+                "        <td></td>\n" +
+                "        <td></td>\n" +
+                "        <td></td>\n" +
+                "        <td></td>\n" +
+                "    </tr><tr>\n" +
+                "        <td></td>\n" +
+                "        <td></td>\n" +
+                "        <td></td>\n" +
+                "        <td></td>\n" +
+                "    </tr>\n" +
+                "    </tbody>");
 
     }
 
