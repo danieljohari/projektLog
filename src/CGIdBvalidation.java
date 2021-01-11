@@ -161,25 +161,25 @@ public class CGIdBvalidation {
                 "            <img src=\"../IMG/Logo.png\">\n" +
                 "        </div>\n" +
                 "        <ul>\n" +
-                "            <li class=\"active\"><a href=\"Forside.html\"><b>Hjem</b></a> </li>\n" +
+                "            <li class=\"active\"><a href=\"/Forside.html\"><b>Hjem</b></a> </li>\n" +
                 "\n" +
                 "            <li><a href=\"#\"><b>Service</b></a>\n" +
                 "                <ul>\n" +
-                "                    <li><a href=\"Tid.html\">Tider og Bestilling</a></li>\n" +
+                "                    <li><a href=\"/Tid.html\">Tider og Bestilling</a></li>\n" +
                 "                    <br><br>\n" +
-                "                    <li><a href=\"Indkaldelse.html\">Se Indkaldelser</a></li>\n" +
+                "                    <li><a href=\"/Indkaldelse.html\">Se Indkaldelser</a></li>\n" +
                 "                </ul>\n" +
                 "            </li>\n" +
                 "\n" +
                 "            <li><a href=\"#\"><b>Journal</b></a>\n" +
                 "                <ul>\n" +
-                "                    <li><a href=\"Journal.html\">Se Journal</a></li>\n" +
+                "                    <li><a href=\"/Journal.html\">Se Journal</a></li>\n" +
                 "                    <br><br>\n" +
                 "                </ul>\n" +
                 "            </li>\n" +
                 "\n" +
-                "            <li><a href=\"Kontakt.html\"><b>Kontakt</b></a></li>\n" +
-                "            <li><a href=\"index.html\"><b>Log Ud</b></a></li>\n" +
+                "            <li><a href=\"/Kontakt.html\"><b>Kontakt</b></a></li>\n" +
+                "            <li><a href=\"/index.html\"><b>Log Ud</b></a></li>\n" +
                 "\n" +
                 "\n" +
                 "        </ul>\n" +
@@ -195,19 +195,8 @@ public class CGIdBvalidation {
                 "        <th id=\"delete\">Fjern:</th>\n" +
                 "    </tr>\n" +
                 "    </thead>\n" +
-                "    <tbody>\n" +
-                "    <tr>\n" +
-                "        <td></td>\n" +
-                "        <td></td>\n" +
-                "        <td></td>\n" +
-                "        <td></td>\n" +
-                "    </tr><tr>\n" +
-                "        <td></td>\n" +
-                "        <td></td>\n" +
-                "        <td></td>\n" +
-                "        <td></td>\n" +
-                "    </tr>\n" +
-                "    </tbody>");
+                "    <tbody>\n"
+                );
 
     }
 
