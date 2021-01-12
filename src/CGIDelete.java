@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.sql.*;
+import java.util.Arrays;
 
 public class CGIDelete {
     public CGIDelete(){
@@ -15,28 +16,24 @@ public class CGIDelete {
     private static final String dbPassword = "Johari";
     private static Connection connection = null;
     static String cprsql = null;
-
     static Time timeSql = null;
     static Date dateSql = null;
     static int idBestilling;
     static String hospitalSql = null;
     static String departmentsSql2 = null;
+   static   CGIAppointment cgiAppointment;
 
 
-    public static void main(String[] args)  {
-
+    public static void main(String[] args) throws IOException {
                 getConnection();
         BufferedReader in =  new BufferedReader(new InputStreamReader(System.in));
-        String data = null;
-        try {
-            data = in.readLine();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        String[] data = new String[]{in.readLine()};
 
+
+        showHead();
 
         deleteAppointment();
-        showHead();
+
         getAppointment();
         showTail();
 
@@ -45,7 +42,7 @@ public class CGIDelete {
 
     private static void deleteAppointment() {
         try {
-            String sql2 = "DELETE FROM PatientPortal.Bestilling WHERE idBestilling = "+ idBestilling+" ";
+            String sql2 = "DELETE FROM PatientPortal.Bestilling WHERE idBestilling = "+ idBestilling+"; ";
             PreparedStatement pstatement = connection.prepareStatement(sql2);
             pstatement.executeUpdate();
         } catch (Exception e) {
@@ -55,7 +52,7 @@ public class CGIDelete {
 
     private static void getAppointment() {
         try{
-            String sql1 = "SELECT Tid,Dato,Hospital,Afdeling, idBestilling FROM PatientPortal.Bestilling WHERE CPR= '" + cprsql + "'";
+            String sql1 = "SELECT Tid,Dato,Hospital,Afdeling, idBestilling FROM PatientPortal.Bestilling WHERE CPR= '" + cprsql + "';";
             Statement statement = connection.createStatement();
             ResultSet rs1 = statement.executeQuery(sql1);
             while (rs1.next()) {
@@ -85,7 +82,7 @@ public class CGIDelete {
                 "        <td>" + dateSql + "</td>\n" +
                 "        <td>" + timeSql + "</td>\n" +
                 "<td>\n" +
-                "                <form action=\"/cgi-bin/CGIDelete\"><input type=\"submit\" value=\"delete\"><input type=\"hidden\" value=\""+idBestilling+"\"> </form>\n" +
+                "                <form action=\"/cgi-bin/CGIDelete\" method=\"post\"><input type=\"submit\" value=\"delete\"><input type=\"hidden\" value=\""+idBestilling+"\"> </form>\n" +
                 "            </td>"+
                 "    </tr>\n");
     }
@@ -111,7 +108,7 @@ public class CGIDelete {
                 "        </div>\n" +
                 "        <ul>\n" +
                 "            <li class=\"active\"><a href=\"/Forside.html\"><b>Hjem</b></a> </li>\n" +
-                "            <li><a href=\"#\"><b>Service</b></a>\n" +
+                "            <li><a href=\"#\"><b>Aftaler</b></a>\n" +
                 "                <ul>\n" +
                 "                    <li><a href=\"/Tid.html\">Tider og Bestilling</a></li>\n" +
                 "                    <br><br>\n" +

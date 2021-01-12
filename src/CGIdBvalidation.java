@@ -107,7 +107,7 @@ public class CGIdBvalidation {
                 "        <td>" + dateSql + "</td>\n" +
                 "        <td>" + timeSql + "</td>\n" +
                 "<td>\n" +
-                "                <form action=\"/cgi-bin/CGIDelete\"><input type=\"submit\" value=\"delete\"><input type=\"hidden\" value=\""+idBestilling+"\"> </form>\n" +
+                "                <form action=\"/cgi-bin/CGIDelete\" method=\"post\"><input type=\"submit\" value=\"delete\"><input type=\"hidden\" value=\""+idBestilling+"\"> </form>\n" +
                 "            </td>"+
                 "    </tr>\n");
     }
@@ -163,7 +163,7 @@ public class CGIdBvalidation {
                 "        <ul>\n" +
                 "            <li class=\"active\"><a href=\"/Forside.html\"><b>Hjem</b></a> </li>\n" +
                 "\n" +
-                "            <li><a href=\"#\"><b>Service</b></a>\n" +
+                "            <li><a href=\"#\"><b>Aftaler</b></a>\n" +
                 "                <ul>\n" +
                 "                    <li><a href=\"/Tid.html\">Tider og Bestilling</a></li>\n" +
                 "                    <br><br>\n" +

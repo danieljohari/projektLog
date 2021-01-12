@@ -68,6 +68,8 @@ public class CGIAppointment {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
@@ -81,7 +83,7 @@ public class CGIAppointment {
                 "</html>");
     }
 
-    private static void getAppointment() {
+    private static void getAppointment() throws SQLException {
         try{
             String sql1 = "SELECT Tid,Dato,Hospital,Afdeling, idBestilling FROM PatientPortal.Bestilling WHERE CPR= '" +
                     cprsql + "'";
@@ -98,6 +100,7 @@ public class CGIAppointment {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
     }
 
 
@@ -109,7 +112,7 @@ public class CGIAppointment {
                 "        <td>" + dateSql + "</td>\n" +
                 "        <td>" + timeSql + "</td>\n" +
                 "<td>\n" +
-                        "                <form action=\"/cgi-bin/CGIDelete\"><input type=\"submit\" value=\"delete\"><input type=\"hidden\" value=\""+idBestilling+"\"> </form>\n" +
+                        "                <form action=\"/cgi-bin/CGIDelete\" method=\"post\"><input type=\"submit\" value=\"delete\"><input type=\"hidden\" value=\""+idBestilling+"\"> </form>\n" +
                         "            </td>"+
                 "    </tr>\n");
     }
@@ -135,7 +138,7 @@ public class CGIAppointment {
                 "        </div>\n" +
                 "        <ul>\n" +
                 "            <li class=\"active\"><a href=\"/Forside.html\"><b>Hjem</b></a> </li>\n" +
-                "            <li><a href=\"#\"><b>Service</b></a>\n" +
+                "            <li><a href=\"#\"><b>Aftaler</b></a>\n" +
                 "                <ul>\n" +
                 "                    <li><a href=\"/Tid.html\">Tider og Bestilling</a></li>\n" +
                 "                    <br><br>\n" +
@@ -173,7 +176,7 @@ public class CGIAppointment {
                 "            <tbody>");
     }
 
-    private static void setAppointment(String cprsql, String hospitalSql, String departmentsSql2, Date dateSql, Time timeSql) {
+    private static void setAppointment(String cprsql, String hospitalSql, String departmentsSql2, Date dateSql, Time timeSql) throws SQLException {
         try{
             String sql = "INSERT INTO PatientPortal.Bestilling (CPR, Hospital,Afdeling, Dato, Tid) VALUES (?,?,?,?,?)";
             PreparedStatement preparedStatement = getConnection().prepareStatement(sql);
@@ -187,6 +190,7 @@ public class CGIAppointment {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
     }
 
     private static Connection getConnection() {
