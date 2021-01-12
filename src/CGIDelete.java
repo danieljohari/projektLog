@@ -28,21 +28,33 @@ public class CGIDelete {
                 getConnection();
         BufferedReader in =  new BufferedReader(new InputStreamReader(System.in));
         String[] data = new String[]{in.readLine()};
-
+        getID();
+        getCPR();
 
         showHead();
-
         deleteAppointment();
-
         getAppointment();
         showTail();
 
 
     }
 
+    private static void getID() {
+        try {
+            String sql3 = "SELECT * FROM PatientPortal.Bestilling;";
+            Statement statement1 = connection.createStatement();
+            ResultSet set = statement1.executeQuery(sql3);
+            while (set.next()) {
+                idBestilling = set.getInt("idBestilling");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     private static void deleteAppointment() {
         try {
-            String sql2 = "DELETE FROM PatientPortal.Bestilling WHERE idBestilling = "+ idBestilling+"; ";
+            String sql2 = "DELETE FROM PatientPortal.Bestilling WHERE idBestilling = "+ idBestilling+" ";
             PreparedStatement pstatement = connection.prepareStatement(sql2);
             pstatement.executeUpdate();
         } catch (Exception e) {
@@ -52,7 +64,7 @@ public class CGIDelete {
 
     private static void getAppointment() {
         try{
-            String sql1 = "SELECT Tid,Dato,Hospital,Afdeling, idBestilling FROM PatientPortal.Bestilling WHERE CPR= '" + cprsql + "';";
+            String sql1 = "SELECT Tid,Dato,Hospital,Afdeling, idBestilling FROM PatientPortal.Bestilling WHERE CPR= '" + cprsql + "'";
             Statement statement = connection.createStatement();
             ResultSet rs1 = statement.executeQuery(sql1);
             while (rs1.next()) {
@@ -63,6 +75,20 @@ public class CGIDelete {
                 idBestilling = rs1.getInt("idBestilling");
                 showBody();
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void getCPR() {
+        try {
+            String sql3 = "SELECT CPR FROM PatientPortal.Bestilling WHERE idBestilling =' "+idBestilling + "'";
+            Statement statement1 = connection.createStatement();
+            ResultSet set = statement1.executeQuery(sql3);
+            if (set.next()) {
+                cprsql = set.getString("CPR");
+            }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
