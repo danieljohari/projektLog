@@ -32,6 +32,8 @@ public class CGIDelete {
         getCPR();
 
         showHead();
+        System.out.println("CPR:" + cprsql);
+        System.out.println("ID: " + idBestilling);
         deleteAppointment();
         getAppointment();
         showTail();
@@ -41,12 +43,13 @@ public class CGIDelete {
 
     private static void getID() {
         try {
-            String sql3 = "SELECT * FROM PatientPortal.Bestilling;";
+            String sql3 = "SELECT idBestilling FROM PatientPortal.Bestilling";
             Statement statement1 = connection.createStatement();
             ResultSet set = statement1.executeQuery(sql3);
             while (set.next()) {
                 idBestilling = set.getInt("idBestilling");
             }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -82,12 +85,12 @@ public class CGIDelete {
 
     private static void getCPR() {
         try {
-            String sql3 = "SELECT CPR FROM PatientPortal.Bestilling WHERE idBestilling =' "+idBestilling + "'";
+            String sql3 = "SELECT CPR FROM PatientPortal.Bestilling WHERE idBestilling = "+idBestilling + "";
             Statement statement1 = connection.createStatement();
-            ResultSet set = statement1.executeQuery(sql3);
-            if (set.next()) {
-                cprsql = set.getString("CPR");
-            }
+            ResultSet set1 = statement1.executeQuery(sql3);
+            set1.next();
+                cprsql = set1.getString("CPR");
+
 
         } catch (SQLException e) {
             e.printStackTrace();
