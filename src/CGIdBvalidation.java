@@ -60,7 +60,6 @@ public class CGIdBvalidation {
         } catch (IOException ioe) {
 
 
-            System.out.println("<P>IOException reading POST data: " + ioe + "</P>");
         }
         showTail();
 
@@ -106,10 +105,15 @@ public class CGIdBvalidation {
                 "        <td>" + departmentsSql2.replaceAll("%C3%B8", "ø") + "</td>\n" +
                 "        <td>" + dateSql + "</td>\n" +
                 "        <td>" + timeSql + "</td>\n" +
-                "<td>\n" +
-                "                <form action=\"/cgi-bin/CGIDelete\" method=\"post\"><input type=\"submit\" value=\"delete\"><input type=\"hidden\" value=\""+idBestilling+"\"> </form>\n" +
-                "            </td>"+
-                "    </tr>\n");
+                        "        <td>" + idBestilling + "</td>\n" +
+                        "        <td>\n" +
+                        "            <form action=\"/cgi-bin/CGIDelete\" method=\"post\">\n" +
+                        "                <input type=\"text\" name=\"aftaleId\">\n" +
+                        "                <input type=\"submit\" value=\"slet\"/>\n" +
+                        "            </form>\n" +
+                        "        </td> "+
+                        "    </tr>\n"
+                );
     }
 
     private static void showTail() {
@@ -192,7 +196,8 @@ public class CGIdBvalidation {
                 "        <th id=\"afdeling\">Afdeling:</th>\n" +
                 "        <th id=\"dato\">Dato:</th>\n" +
                 "        <th id=\"tid\">Tid:</th>\n" +
-                "        <th id=\"delete\">Fjern:</th>\n" +
+                "        <th id=\"idid\">Id:</th>\n" +
+                "        <th id=\"fjern\">Fjern:</th>\n" +
                 "    </tr>\n" +
                 "    </thead>\n" +
                 "    <tbody>\n"

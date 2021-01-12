@@ -1,10 +1,10 @@
+import java.awt.font.ShapeGraphicAttribute;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.sql.*;
-import java.util.Arrays;
 
-public class CGIDelete {
+public class CGIDelete extends CGIdBvalidation {
     public CGIDelete(){
 
     }
@@ -15,39 +15,52 @@ public class CGIDelete {
     private static final String dbUsername = "daniel";
     private static final String dbPassword = "Johari";
     private static Connection connection = null;
-    static String cprsql = null;
-    static Time timeSql = null;
-    static Date dateSql = null;
-    static int idBestilling;
-    static String hospitalSql = null;
-    static String departmentsSql2 = null;
-   static   CGIAppointment cgiAppointment;
+    static String cprsql1 = null;
+    static Time timeSql1 = null;
+    static Date dateSql1 = null;
+    static int idBestilling1;
+    static String hospitalSql1 = null;
+    static String departmentsSql21 = null;
+   static String inputFraCgi1 = null;
+   static String[] clientResponse1 = null;
+   static  int idBestilling2;
 
 
-    public static void main(String[] args) throws IOException {
-                getConnection();
+
+    public static void main(String[] args) {
+
+        getConnection();
+        try {
         BufferedReader in =  new BufferedReader(new InputStreamReader(System.in));
-        String[] data = new String[]{in.readLine()};
-        getID();
+
+            String[] data = new String[]{in.readLine()};
+             inputFraCgi1 = data[0];
+            clientResponse1 = inputFraCgi1.split("=");
+            idBestilling2 = Integer.parseInt(clientResponse1[1]);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        //getID();
         getCPR();
 
+
         showHead();
-        System.out.println("CPR:" + cprsql);
-        System.out.println("ID: " + idBestilling);
+
         deleteAppointment();
-        getAppointment();
+        getAppointment1();
         showTail();
 
 
     }
-
+/*
     private static void getID() {
         try {
             String sql3 = "SELECT idBestilling FROM PatientPortal.Bestilling";
             Statement statement1 = connection.createStatement();
             ResultSet set = statement1.executeQuery(sql3);
-            while (set.next()) {
-                idBestilling = set.getInt("idBestilling");
+            if (set.next()) {
+                idBestilling1 = set.getInt("idBestilling");
             }
 
         } catch (SQLException e) {
@@ -55,9 +68,11 @@ public class CGIDelete {
         }
     }
 
+ */
+
     private static void deleteAppointment() {
         try {
-            String sql2 = "DELETE FROM PatientPortal.Bestilling WHERE idBestilling = "+ idBestilling+" ";
+            String sql2 = "DELETE FROM PatientPortal.Bestilling WHERE idBestilling = "+ idBestilling2 +" ";
             PreparedStatement pstatement = connection.prepareStatement(sql2);
             pstatement.executeUpdate();
         } catch (Exception e) {
@@ -65,17 +80,17 @@ public class CGIDelete {
         }
     }
 
-    private static void getAppointment() {
+    private static void getAppointment1() {
         try{
-            String sql1 = "SELECT Tid,Dato,Hospital,Afdeling, idBestilling FROM PatientPortal.Bestilling WHERE CPR= '" + cprsql + "'";
+            String sql1 = "SELECT Tid,Dato,Hospital,Afdeling, idBestilling FROM PatientPortal.Bestilling WHERE CPR= '" + cprsql1 + "'";
             Statement statement = connection.createStatement();
             ResultSet rs1 = statement.executeQuery(sql1);
             while (rs1.next()) {
-                timeSql = rs1.getTime("Tid");
-                dateSql = rs1.getDate("Dato");
-                hospitalSql = rs1.getString("Hospital");
-                departmentsSql2 = rs1.getString("Afdeling");
-                idBestilling = rs1.getInt("idBestilling");
+                timeSql1 = rs1.getTime("Tid");
+                dateSql1 = rs1.getDate("Dato");
+                hospitalSql1 = rs1.getString("Hospital");
+                departmentsSql21 = rs1.getString("Afdeling");
+                idBestilling1 = rs1.getInt("idBestilling");
                 showBody();
             }
         } catch (SQLException e) {
@@ -85,11 +100,11 @@ public class CGIDelete {
 
     private static void getCPR() {
         try {
-            String sql3 = "SELECT CPR FROM PatientPortal.Bestilling WHERE idBestilling = "+idBestilling + "";
+            String sql3 = "SELECT CPR FROM PatientPortal.Bestilling WHERE idBestilling = "+ idBestilling2 + "";
             Statement statement1 = connection.createStatement();
             ResultSet set1 = statement1.executeQuery(sql3);
             set1.next();
-                cprsql = set1.getString("CPR");
+                cprsql1 = set1.getString("CPR");
 
 
         } catch (SQLException e) {
@@ -106,13 +121,17 @@ public class CGIDelete {
 
     private static void showBody() {
         System.out.println("    <tr>\n" +
-                "        <td>" + hospitalSql + "</td>\n" +
-                "        <td>" + departmentsSql2.replaceAll("%C3%B8", "ø") + "</td>\n" +
-                "        <td>" + dateSql + "</td>\n" +
-                "        <td>" + timeSql + "</td>\n" +
-                "<td>\n" +
-                "                <form action=\"/cgi-bin/CGIDelete\" method=\"post\"><input type=\"submit\" value=\"delete\"><input type=\"hidden\" value=\""+idBestilling+"\"> </form>\n" +
-                "            </td>"+
+                "        <td>" + hospitalSql1 + "</td>\n" +
+                "        <td>" + departmentsSql21.replaceAll("%C3%B8", "ø") + "</td>\n" +
+                "        <td>" + dateSql1 + "</td>\n" +
+                "        <td>" + timeSql1 + "</td>\n" +
+                "        <td>" + idBestilling1 + "</td>\n" +
+                "        <td>\n" +
+                "            <form action=\"/cgi-bin/CGIDelete\" method=\"post\">\n" +
+                "                <input type=\"text\" name=\"aftaleId\">\n" +
+                "                <input type=\"submit\" value=\"slet\"/>\n" +
+                "            </form>\n" +
+                "        </td> "+
                 "    </tr>\n");
     }
 
@@ -169,7 +188,8 @@ public class CGIDelete {
                 "                <th id=\"afdeling\">Afdeling:</th>\n" +
                 "                <th id=\"dato\">Dato:</th>\n" +
                 "                <th id=\"tid\">Tid:</th>\n" +
-                "                <th id=\"Fjern\">Fjern:</th>\n" +
+                "                <th id=\"idid\">ID:</th>\n" +
+                "                <th id=\"fjern\">Fjern:</th>\n" +
                 "            </tr>\n" +
                 "            </thead>\n" +
                 "            <tbody>");

@@ -25,7 +25,7 @@ public class CGIAppointment {
     static String timeString = null;
     static Time timeSql = null;
     static Date dateSql = null;
-    static int idBestilling = 0;
+    static int idBestilling;
     static String hospitalSql = null;
     static String departmentsSql = null;
     static String departmentsSql1 = null;
@@ -61,7 +61,7 @@ public class CGIAppointment {
             timeSql = sqlTime;
             setAppointment(cprsql, hospitalSql, departmentsSql2, dateSql, timeSql);
             showHead();
-            getAppointment();
+            getAppointment2();
             showTail();
 
         } catch (ParseException e) {
@@ -71,6 +71,7 @@ public class CGIAppointment {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
     }
 
 
@@ -83,7 +84,7 @@ public class CGIAppointment {
                 "</html>");
     }
 
-    private static void getAppointment() throws SQLException {
+    private static void getAppointment2()  {
         try{
             String sql1 = "SELECT Tid,Dato,Hospital,Afdeling, idBestilling FROM PatientPortal.Bestilling WHERE CPR= '" +
                     cprsql + "'";
@@ -111,9 +112,13 @@ public class CGIAppointment {
                 "        <td>" + departmentsSql2.replaceAll("%C3%B8", "ø") + "</td>\n" +
                 "        <td>" + dateSql + "</td>\n" +
                 "        <td>" + timeSql + "</td>\n" +
-                "<td>\n" +
-                        "                <form action=\"/cgi-bin/CGIDelete\" method=\"post\"><input type=\"submit\" value=\"delete\"><input type=\"hidden\" value=\""+idBestilling+"\"> </form>\n" +
-                        "            </td>"+
+                "        <td>" + idBestilling + "</td>\n" +
+                "        <td>\n" +
+                "            <form action=\"/cgi-bin/CGIDelete\" method=\"post\">\n" +
+                "                <input type=\"text\" name=\"aftaleId\">\n" +
+                "                <input type=\"submit\" value=\"slet\"/>\n" +
+                "            </form>\n" +
+                "        </td> "+
                 "    </tr>\n");
     }
 
@@ -170,7 +175,8 @@ public class CGIAppointment {
                 "                <th id=\"afdeling\">Afdeling:</th>\n" +
                 "                <th id=\"dato\">Dato:</th>\n" +
                 "                <th id=\"tid\">Tid:</th>\n" +
-                "                <th id=\"Fjern\">Fjern:</th>\n" +
+                "                <th id=\"idid\">ID:</th>\n" +
+                "                <th id=\"fjern\">Fjern:</th>\n" +
                 "            </tr>\n" +
                 "            </thead>\n" +
                 "            <tbody>");
