@@ -10,7 +10,6 @@ import java.sql.Time;
 public class DBUploadLog {
     private static UIlogin ui;
     private static String CPR;
-    private static String Mail;
     private static String Password;
     private static Connection connection;
 
@@ -32,8 +31,6 @@ public class DBUploadLog {
                 CPR = ui.askForCPR();
                 System.out.println("Brugeren tastede: " + CPR);
 
-                Mail = ui.askForMail();
-                System.out.println("Brugeren indtastede: " + Mail);
 
                 Password = ui.askForPassword();
                 System.out.println("Brugeren indtastede: " + Password);
@@ -41,14 +38,13 @@ public class DBUploadLog {
                 // Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/?serverTimezone=Europe/Amsterdam&amp", "root", "Johari");
 
 
-                String query = " insert into PatientPortal.loginoplysninger (CPR, Mail,Kode)"
-                        + " values (?, ?, ?)";
+                String query = " insert into PatientPortal.loginoplysninger (CPR,Kode)"
+                        + " values (?, ?)";
 
                 // create the mysql insert preparedstatement
                 PreparedStatement preparedStmt = connection.prepareStatement(query);
                 preparedStmt.setString(1, CPR);
-                preparedStmt.setString(2, Mail);
-                preparedStmt.setString(3, Password);
+                preparedStmt.setString(2, Password);
 
 
                 // execute the preparedstatement
